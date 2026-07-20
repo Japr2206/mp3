@@ -1,0 +1,14 @@
+langchain>=1.0
+langchain-openai
+langchain-chroma
+langchain-text-splitters
+langchain-community
+chromadb
+langgraph
+fastmcp
+langsmith
+openai>=2.38
+nest_asyncio
+python-dotenv
+pypdf
+python-docx
