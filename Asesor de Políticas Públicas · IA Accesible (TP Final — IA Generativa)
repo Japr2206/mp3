@@ -1,0 +1,35 @@
+# Asesor de Políticas Públicas · IA Accesible (TP Final — IA Generativa)
+
+Chatbot agéntico para decisores públicos, fundamentado en investigación real:
+el capítulo del libro **Uniandes–BID** «Inteligencia artificial en el sector público de
+América Latina y el Caribe» — *IA accesible e inclusión laboral de personas con
+discapacidad auditiva en Argentina* (Paredes Rojas). Evidencia: encuesta a 170
+participantes, 50 narrativas laborales y entrevistas institucionales.
+
+## 🧩 Arquitectura
+
+Funcionario ⇄ Interfaz HTML (Colab) ⇄ Agente ReAct (LangGraph)
+                                        ├─ 🧠 Memoria por thread_id (checkpointer)
+                                        ├─ 📚 consultar_capitulo → RAG (Chroma persistente sobre el capítulo)
+                                        ├─ 🛠 calculadora · fecha_hora_actual
+                                        └─ 🔌 MCP «observatorio-ia-accesible» (FastMCP)
+Trazabilidad completa en **LangSmith** (proyecto `asesor-ia-accesible-bid`).
+
+## 🔌 MCP Server — tools (datos reales del capítulo)
+| Tool | Qué sirve | Fuente |
+|---|---|---|
+| `consultar_hoja_de_ruta` | Las 7 etapas con acción y producto verificable | Tabla 3 |
+| `consultar_indicadores` | Porcentajes empíricos (uso 70 %, rotación 56,7 %, privacidad 68,3 %…) | Tabla 2 (n=170) |
+| `evaluar_iniciativa` | Contrasta un proyecto contra la hoja de ruta y marca etapas faltantes | Tabla 3 |
+| `crear_borrador_policy_brief` | Borrador de policy brief — requiere aprobación humana | Capítulo completo |
+
+## ▶️ Cómo correrlo
+1. Abrir `TP_Final_Asesor_IA_Accesible.ipynb` en Google Colab y ejecutar en orden.
+2. Claves: `OPENAI_API_KEY` (obligatoria) y `LANGSMITH_API_KEY` (opcional, para trazas).
+3. En §3.1, subir el capítulo `.docx` (o usar el resumen fiel incluido).
+4. Interactuar en la interfaz de §9 — los chips muestran qué componente actuó por turno.
+
+## ✅ Componentes de la consigna
+- [x] OpenAI (API key personal) · [x] Chains + LCEL · [x] Memory (thread_id)
+- [x] Tools propias · [x] Agente ReAct · [x] RAG con Chroma **persistente**
+- [x] MCP Server integrado como tool del agente · [x] LangSmith · [x] Interfaz (Unidad 4)
